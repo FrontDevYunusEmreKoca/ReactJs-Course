@@ -3,41 +3,38 @@
 // JSX - JS Xml
 
 var root = document.getElementById("root");
-var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-  id: "header"
-}, "Hello World"), /*#__PURE__*/React.createElement("div", null, "Lorem ipsum dolor sit amet."), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor.")));
-var number = 0;
-var btnClassOneName = "btnRed";
-var btnClassMinusName = "btnBlue";
-
-//es5
-function addOne() {
-  number++;
-  renderApp();
-  console.log("add one");
-}
-//es6
-var minusOne = function minusOne() {
-  number--;
-  renderApp();
-  console.log("minus one");
+var app = {
+  title: "To Do APP",
+  description: "lorem ipsum dolor",
+  items: ["item1", "item2", "item3"]
 };
-function renderApp() {
-  var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number: ", number), /*#__PURE__*/React.createElement("button", {
-    id: "btnPlusOne",
-    className: btnClassOneName,
-    onClick: addOne
-  }, "+1"), /*#__PURE__*/React.createElement("button", {
-    id: "btnMinusOne",
-    className: btnClassMinusName,
-    onClick: minusOne
-  }, "-1 "));
-  ReactDOM.render(template2, root);
+function onFormSubmit(event) {
+  event.preventDefault(); // yeni bir tane event olusturdugumuzda sayfa yenilenmesin istiyorum
+  var item = event.target.elements.txtItem.value;
+  if (item) {
+    app.items.push(item);
+    event.target.elements.txtItem.value = "";
+    render();
+  }
+  console.log("form submitted");
 }
-function tick() {
-  var element = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "time is : ", new Date().toLocaleTimeString()));
-  ReactDOM.render(element, root);
+function clearItems() {
+  app.items = [];
+  render();
 }
-setInterval(tick, 1000); /// surekli bir saniyede bir cagir.
-
-//renderApp();
+function render() {
+  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+    id: "header"
+  }, app.title), /*#__PURE__*/React.createElement("div", null, app.description, "."), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum dolor.")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: clearItems
+  }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
+    onSubmit: onFormSubmit
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "txtItem"
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit"
+  }, "Add Item")));
+  ReactDOM.render(template, root);
+}
+render();
