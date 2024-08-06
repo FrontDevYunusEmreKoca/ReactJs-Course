@@ -12,19 +12,32 @@ var btnClassMinusName = "btnBlue";
 
 //es5
 function addOne() {
+  number++;
+  renderApp();
   console.log("add one");
 }
 //es6
 var minusOne = function minusOne() {
+  number--;
+  renderApp();
   console.log("minus one");
 };
-var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number: ", number), /*#__PURE__*/React.createElement("button", {
-  id: "btnPlusOne",
-  className: btnClassOneName,
-  onClick: addOne
-}, "+1"), /*#__PURE__*/React.createElement("button", {
-  id: "btnMinusOne",
-  className: btnClassMinusName,
-  onClick: minusOne
-}, "-1 "));
-ReactDOM.render(template2, root);
+function renderApp() {
+  var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number: ", number), /*#__PURE__*/React.createElement("button", {
+    id: "btnPlusOne",
+    className: btnClassOneName,
+    onClick: addOne
+  }, "+1"), /*#__PURE__*/React.createElement("button", {
+    id: "btnMinusOne",
+    className: btnClassMinusName,
+    onClick: minusOne
+  }, "-1 "));
+  ReactDOM.render(template2, root);
+}
+function tick() {
+  var element = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "time is : ", new Date().toLocaleTimeString()));
+  ReactDOM.render(element, root);
+}
+setInterval(tick, 1000); /// surekli bir saniyede bir cagir.
+
+//renderApp();
