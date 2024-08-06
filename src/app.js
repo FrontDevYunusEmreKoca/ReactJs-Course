@@ -8,9 +8,9 @@ var app = {
     description: "lorem ipsum dolor",
     items : 
     [
-        "item1",
-        "item2",
-        "item3"
+     "item1",
+     "item2",
+     "item3"
     ]
 
 };
@@ -34,16 +34,22 @@ function clearItems (){
 }
 
 function render(){
+
+   
     var template = (
         <div>
             <h1 id= "header">{app.title}</h1>
             <div>{app.description}.</div> 
-            <ul>
-                <li>Lorem, ipsum dolor.</li>
-                <li>Lorem, ipsum dolor.</li>
-                <li>Lorem, ipsum dolor.</li>
-                <li>Lorem, ipsum dolor.</li>
-            </ul>
+            {
+               <ul>
+                {
+                       app.items.map((item,index) => { // numbersdan number dizisi olustur // map metodu
+                        return <li key = {index}>{item}</li> 
+                    })
+
+                }
+               </ul>
+            }
             <p>
                 <button onClick ={clearItems} >Clear Items</button>
             </p>
