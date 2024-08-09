@@ -3,7 +3,7 @@
 var root = document.getElementById("root");
 
 
-var app = {
+const app = {
     title :"To Do APP",
     description: "lorem ipsum dolor",
     items : 
@@ -15,7 +15,8 @@ var app = {
 
 };
 
-function onFormSubmit (event){
+
+const onFormSubmit = (event) =>{
     event.preventDefault(); // yeni bir tane event olusturdugumuzda sayfa yenilenmesin istiyorum
     var item = event.target.elements.txtItem.value;
     
@@ -28,14 +29,13 @@ function onFormSubmit (event){
     console.log("form submitted");
 }
 
-function clearItems (){
+
+const clearItems = () => {
     app.items = [ ];
     render();
 }
 
-function render(){
-
-   
+const render = () => {
     var template = (
         <div>
             <h1 id= "header">{app.title}</h1>
@@ -58,10 +58,11 @@ function render(){
                 <input type="text" name = "txtItem"/>
                 <button type = "submit">Add Item</button>
             </form>
-        </div>
-);
+        </div>);
 
-ReactDOM.render(template,root);
+
+
+        ReactDOM.render(template,root);
 
 }
 
