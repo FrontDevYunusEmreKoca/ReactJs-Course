@@ -1,25 +1,43 @@
 "use strict";
 
-var user = {
-  name: "YunusEmre",
-  email: "kocay1857@gmail.com",
-  city: "Kocaeli",
-  roles: ["admin", "customer"],
-  getRoles: function getRoles() {
-    var _this = this;
-    this.roles.forEach(function (role) {
-      console.log(role);
-      console.log(_this.name);
-    });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+// class es5
+
+var person = function person() {};
+
+//es6 class constructor
+var personES6 = /*#__PURE__*/function () {
+  function personES6() {
+    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Guest";
+    var year = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2024;
+    var email = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "asdsadasddad@gmail.com";
+    _classCallCheck(this, personES6);
+    this.name = name;
+    this.year = year;
+    this.email = email;
   }
-};
-user.getRoles();
-var addes5 = function addes5() {
-  console.log(arguments); // kac adeet parametre gonderecegimi bilmiyorsam arguments olarak yazarim
-  var total = 0;
-  for (var i = 0; i < arguments.length; i++) {
-    total += arguments[i];
-  }
-  return total;
-};
-console.log(addes5(5, 10, 15, 20, 25));
+  return _createClass(personES6, [{
+    key: "calculateAge",
+    value: function calculateAge() {
+      return new Date().getFullYear() - this.year;
+    }
+  }, {
+    key: "greeting",
+    value: function greeting(text) {
+      return "".concat(text, ", My name is ").concat(this.name);
+    }
+  }]);
+}(); //nesne -object 
+var p = new personES6("Yunus", 2019, "kocay1857@gmail.com");
+var p2 = new personES6();
+console.log(p.calculateAge());
+console.log(p2.calculateAge());
+console.log(p);
+console.log(p2);
+console.log(p.greeting("hello"));
+console.log(p2.greeting("hello"));
