@@ -1,71 +1,74 @@
-// JSX - JS Xml
+// const header = function (){
+//     return <h1>hello React</h1>
+// }
+// const template = <header />
 
-var root = document.getElementById("root");
+// ReactDOM.render(template,document.getElementById('root'))
 
-
-const app = {
-    title :"To Do APP",
-    description: "lorem ipsum dolor",
-    items : 
-    [
-     "item1",
-     "item2",
-     "item3"
-    ]
-
+class TodoApp extends React.Component{  // ana component bu diger header todolist ve action componentleri bunun icine eklenir
+    render() {
+        return (
+            <div>
+            <Header />
+             <TodoList />
+            <Action />
+        </div>
+        );
+    };
+    
 };
 
 
-const onFormSubmit = (event) =>{
-    event.preventDefault(); // yeni bir tane event olusturdugumuzda sayfa yenilenmesin istiyorum
-    var item = event.target.elements.txtItem.value;
-    
-    if (item){
-        app.items.push(item);
-        event.target.elements.txtItem.value = "";
-        render();
-    }
-   
-    console.log("form submitted");
-}
+class Header extends React.Component {
+    render(){
+        return (
+           <div>
+                 <h1>To Do Application</h1>
+                 <div>Lorem, ipsum dolor.</div> 
+           </div>
+        );
+    };
+};
+
+class TodoList extends React.Component {
+    render(){
+        return (
+            <ul>
+               <TodoItem />
+               <TodoItem />
+               <TodoItem />
+            </ul>
+        );
+    };
+};
+class TodoItem extends React.Component {
+    render(){
+        return (
+            <li>todo item</li>
+        );
+    };
+ };
 
 
-const clearItems = () => {
-    app.items = [ ];
-    render();
-}
-
-const render = () => {
-    var template = (
-        <div>
-            <h1 id= "header">{app.title}</h1>
-            <div>{app.description}.</div> 
-            {
-               <ul>
-                {
-                       app.items.map((item,index) => { // numbersdan number dizisi olustur // map metodu
-                        return <li key = {index}>{item}</li> 
-                    })
-
-                }
-               </ul>
-            }
-            <p>
-                <button onClick ={clearItems} >Clear Items</button>
-            </p>
-            <p>{app.items.length}</p>
-            <form onSubmit = {onFormSubmit}>
+class Action extends React.Component {
+    render(){
+        return (
+            <div>
+                <p>
+                <button >Clear Items</button>
+                </p>
+               
+                <form>
                 <input type="text" name = "txtItem"/>
                 <button type = "submit">Add Item</button>
-            </form>
-        </div>);
+                </form>
+            </div>
+        );
+    };
+};
 
 
 
-        ReactDOM.render(template,root);
-
-}
-
-render();
 
 
+ReactDOM.render(<TodoApp />,document.getElementById("root"))
