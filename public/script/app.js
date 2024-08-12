@@ -13,124 +13,37 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-// const header = function (){
-//     return <h1>hello React</h1>
-// }
-// const template = <header />
-// ReactDOM.render(template,document.getElementById('root'))
-var TodoApp = /*#__PURE__*/function (_React$Component) {
-  function TodoApp() {
-    _classCallCheck(this, TodoApp);
-    return _callSuper(this, TodoApp, arguments);
-  }
-  _inherits(TodoApp, _React$Component);
-  return _createClass(TodoApp, [{
-    key: "render",
-    value:
-    // ana component bu diger header todolist ve action componentleri bunun icine eklenir
-    function render() {
-      var app = {
-        title: "To Do APP",
-        description: "lorem ipsum dolor",
-        items: ["item1", "item2", "item3"]
-      };
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: app.title,
-        description: app.description
-      }), /*#__PURE__*/React.createElement(TodoList, {
-        items: app.items
-      }), /*#__PURE__*/React.createElement(Action, null));
-    }
-  }]);
-}(React.Component);
-;
-var Header = /*#__PURE__*/function (_React$Component2) {
-  function Header() {
-    _classCallCheck(this, Header);
-    return _callSuper(this, Header, arguments);
-  }
-  _inherits(Header, _React$Component2);
-  return _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      console.log(this.props);
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
-    }
-  }]);
-}(React.Component);
-;
-var TodoList = /*#__PURE__*/function (_React$Component3) {
-  function TodoList(props) {
+var Car = /*#__PURE__*/function (_React$Component) {
+  function Car(props) {
     var _this;
-    _classCallCheck(this, TodoList);
-    _this = _callSuper(this, TodoList, [props]);
-    _this.clearItems = _this.clearItems.bind(_this);
+    _classCallCheck(this, Car);
+    _this = _callSuper(this, Car, [props]);
+    _this.changeColor = _this.changeColor.bind(_this);
+    _this.state = {
+      brand: "Opel",
+      model: "Astra",
+      color: "black",
+      year: 2020
+    };
     return _this;
   }
-  _inherits(TodoList, _React$Component3);
-  return _createClass(TodoList, [{
-    key: "clearItems",
-    value: function clearItems() {
-      console.log(this.props.items);
-      console.log("clear Items");
+  _inherits(Car, _React$Component);
+  return _createClass(Car, [{
+    key: "changeColor",
+    value: function changeColor() {
+      this.setState({
+        color: "blue",
+        model: "Corsa"
+        // setState derken aslinda render cagirmadan degisiklikleri yapmis oluyoruz.
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
-        return /*#__PURE__*/React.createElement(TodoItem, {
-          index: index,
-          item: item
-        });
-      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.clearItems
-      }, "Clear Items")));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.state.brand, " - ", this.state.model), /*#__PURE__*/React.createElement("p", null, "selected color: ", /*#__PURE__*/React.createElement("b", null, this.state.color)), /*#__PURE__*/React.createElement("button", {
+        onClick: this.changeColor
+      }, "Change Color"));
     }
   }]);
 }(React.Component);
-;
-var TodoItem = /*#__PURE__*/function (_React$Component4) {
-  function TodoItem() {
-    _classCallCheck(this, TodoItem);
-    return _callSuper(this, TodoItem, arguments);
-  }
-  _inherits(TodoItem, _React$Component4);
-  return _createClass(TodoItem, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item);
-    }
-  }]);
-}(React.Component);
-;
-var Action = /*#__PURE__*/function (_React$Component5) {
-  function Action() {
-    _classCallCheck(this, Action);
-    return _callSuper(this, Action, arguments);
-  }
-  _inherits(Action, _React$Component5);
-  return _createClass(Action, [{
-    key: "onFormSubmit",
-    value: function onFormSubmit(e) {
-      e.preventDefault();
-      var item = e.target.elements.txtItem.value.trim();
-      if (item) {
-        console.log(item);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
-        onSubmit: this.onFormSubmit
-      }, /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        name: "txtItem"
-      }), /*#__PURE__*/React.createElement("button", {
-        type: "submit"
-      }, "Add Item")));
-    }
-  }]);
-}(React.Component);
-;
-ReactDOM.render( /*#__PURE__*/React.createElement(TodoApp, null), document.getElementById("root"));
+ReactDOM.render( /*#__PURE__*/React.createElement(Car, null), document.getElementById("root"));
