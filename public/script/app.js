@@ -29,7 +29,17 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
     value:
     // ana component bu diger header todolist ve action componentleri bunun icine eklenir
     function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement(TodoList, null), /*#__PURE__*/React.createElement(Action, null));
+      var app = {
+        title: "To Do APP",
+        description: "lorem ipsum dolor",
+        items: ["item1", "item2", "item3"]
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: app.title,
+        description: app.description
+      }), /*#__PURE__*/React.createElement(TodoList, {
+        items: app.items
+      }), /*#__PURE__*/React.createElement(Action, null));
     }
   }]);
 }(React.Component);
@@ -43,7 +53,8 @@ var Header = /*#__PURE__*/function (_React$Component2) {
   return _createClass(Header, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "To Do Application"), /*#__PURE__*/React.createElement("div", null, "Lorem, ipsum dolor."));
+      console.log(this.props);
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
     }
   }]);
 }(React.Component);
@@ -57,7 +68,12 @@ var TodoList = /*#__PURE__*/function (_React$Component3) {
   return _createClass(TodoList, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(TodoItem, null), /*#__PURE__*/React.createElement(TodoItem, null), /*#__PURE__*/React.createElement(TodoItem, null));
+      return /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement(TodoItem, {
+          index: index,
+          item: item
+        });
+      }));
     }
   }]);
 }(React.Component);
@@ -71,7 +87,7 @@ var TodoItem = /*#__PURE__*/function (_React$Component4) {
   return _createClass(TodoItem, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, "todo item");
+      return /*#__PURE__*/React.createElement("li", null, this.props.item);
     }
   }]);
 }(React.Component);

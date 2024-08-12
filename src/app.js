@@ -7,10 +7,23 @@
 
 class TodoApp extends React.Component{  // ana component bu diger header todolist ve action componentleri bunun icine eklenir
     render() {
+        const app = {
+            title :"To Do APP",
+            description: "lorem ipsum dolor",
+            items : 
+            [
+             "item1",
+             "item2",
+             "item3"
+            ]
+        
+        };
+
+
         return (
             <div>
-            <Header />
-             <TodoList />
+            <Header title = {app.title} description = {app.description}/>
+             <TodoList  items = {app.items}/>
             <Action />
         </div>
         );
@@ -19,12 +32,14 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
 };
 
 
+
 class Header extends React.Component {
     render(){
+        console.log(this.props)
         return (
            <div>
-                 <h1>To Do Application</h1>
-                 <div>Lorem, ipsum dolor.</div> 
+                 <h1>{this.props.title}</h1>
+                 <div>{this.props.description}</div> 
            </div>
         );
     };
@@ -34,9 +49,10 @@ class TodoList extends React.Component {
     render(){
         return (
             <ul>
-               <TodoItem />
-               <TodoItem />
-               <TodoItem />
+               {
+               this.props.items.map((item,index) =>
+                 <TodoItem index={index} item={item}/>)
+               }
             </ul>
         );
     };
@@ -44,7 +60,7 @@ class TodoList extends React.Component {
 class TodoItem extends React.Component {
     render(){
         return (
-            <li>todo item</li>
+            <li >{this.props.item}</li>
         );
     };
  };
