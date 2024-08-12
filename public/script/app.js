@@ -13,98 +13,156 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-var Counter = /*#__PURE__*/function (_React$Component) {
-  function Counter(props) {
+// const header = function (){
+//     return <h1>hello React</h1>
+// }
+// const template = <header />
+// ReactDOM.render(template,document.getElementById('root'))
+var TodoApp = /*#__PURE__*/function (_React$Component) {
+  // ana component bu diger header todolist ve action componentleri bunun icine eklenir
+  function TodoApp(props) {
     var _this;
-    _classCallCheck(this, Counter);
-    _this = _callSuper(this, Counter, [props]);
-    _this.addOne = _this.addOne.bind(_this);
-    _this.minusOne = _this.minusOne.bind(_this);
-    _this.reset = _this.reset.bind(_this);
+    _classCallCheck(this, TodoApp);
+    _this = _callSuper(this, TodoApp, [props]);
+    _this.clearItems = _this.clearItems.bind(_this);
+    _this.addItems = _this.addItems.bind(_this);
     _this.state = {
-      number: 0
+      items: ["item1", "item2", "item3"]
     };
     return _this;
   }
-  _inherits(Counter, _React$Component);
-  return _createClass(Counter, [{
-    key: "addOne",
-    value: function addOne() {
+  _inherits(TodoApp, _React$Component);
+  return _createClass(TodoApp, [{
+    key: "clearItems",
+    value: function clearItems() {
+      console.log("asdsadsads");
       this.setState({
-        number: this.state.number + 1 // bu daha kullanisli
+        items: []
       });
-      console.log("+1");
     }
   }, {
-    key: "minusOne",
-    value: function minusOne() {
+    key: "addItems",
+    value: function addItems(item) {
+      if (!item) {
+        return "eklemek istediginiz elemani girin";
+      } else if (this.state.items.indexOf(item) > -1)
+        // 0 ise ayni eleman var demektir
+        {
+          return "ayni elemani ekleyemezsiniz";
+        }
       this.setState(function (prevState) {
         return {
-          number: prevState.number - 1 // yukardaku addOne ile ayni kullanim aslinda
+          items: prevState.items.concat(item)
         };
-      });
-      console.log("-1");
-    }
-  }, {
-    key: "reset",
-    value: function reset() {
-      this.setState({
-        number: 0
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number:", this.state.number), /*#__PURE__*/React.createElement("button", {
-        onClick: this.addOne
-      }, "+1"), /*#__PURE__*/React.createElement("button", {
-        onClick: this.minusOne
-      }, "-1 "), /*#__PURE__*/React.createElement("button", {
-        onClick: this.reset
-      }, "Resetle "));
+      var app = {
+        title: "To Do APP",
+        description: "lorem ipsum dolor"
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: app.title,
+        description: app.description
+      }), /*#__PURE__*/React.createElement(TodoList, {
+        items: this.state.items,
+        clearItems: this.clearItems
+      }), /*#__PURE__*/React.createElement(Action, {
+        addItems: this.addItems
+      }));
     }
   }]);
 }(React.Component);
-ReactDOM.render( /*#__PURE__*/React.createElement(Counter, null), document.getElementById("root"));
-
-// var number = 0;
-// var btnClassOneName = "btnRed";
-// var btnClassMinusName = "btnBlue";
-
-// //es5
-// function addOne () {
-//     number++
-//     renderApp();
-//     console.log("add one")
-
-// }
-// //es6
-// var  minusOne = () => {
-//     number--
-//     renderApp();
-//     console.log("minus one")
-// }
-
-// function renderApp (){
-//     var template2 = (
-//         <div>
-//             <h1>Number: {number}</h1>
-//             <button id = "btnPlusOne" className= {btnClassOneName} onClick ={addOne}>+1</button> 
-//             <button id= "btnMinusOne" className= {btnClassMinusName} onClick = {minusOne}>-1 </button>
-//         </div>
-//     )
-
-// }
-
-// function tick(){
-//     var element = (
-//         <div>
-//             <h2>time is : {new Date().toLocaleTimeString()}</h2>
-//         </div>
-//     );
-//     ReactDOM.render(element,root)
-// }
-
-// setInterval(tick,1000) /// surekli bir saniyede bir cagir.
-
-// //renderApp();
+;
+var Header = /*#__PURE__*/function (_React$Component2) {
+  function Header() {
+    _classCallCheck(this, Header);
+    return _callSuper(this, Header, arguments);
+  }
+  _inherits(Header, _React$Component2);
+  return _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
+    }
+  }]);
+}(React.Component);
+;
+var TodoList = /*#__PURE__*/function (_React$Component3) {
+  function TodoList() {
+    _classCallCheck(this, TodoList);
+    return _callSuper(this, TodoList, arguments);
+  }
+  _inherits(TodoList, _React$Component3);
+  return _createClass(TodoList, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement(TodoItem, {
+          key: index,
+          item: item
+        });
+      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.props.clearItems
+      }, "Clear Items")));
+    }
+  }]);
+}(React.Component);
+;
+var TodoItem = /*#__PURE__*/function (_React$Component4) {
+  function TodoItem() {
+    _classCallCheck(this, TodoItem);
+    return _callSuper(this, TodoItem, arguments);
+  }
+  _inherits(TodoItem, _React$Component4);
+  return _createClass(TodoItem, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("li", null, this.props.item);
+    }
+  }]);
+}(React.Component);
+;
+var Action = /*#__PURE__*/function (_React$Component5) {
+  function Action(props) {
+    var _this2;
+    _classCallCheck(this, Action);
+    _this2 = _callSuper(this, Action, [props]);
+    _this2.onFormSubmit = _this2.onFormSubmit.bind(_this2);
+    _this2.state = {
+      error: ""
+    };
+    return _this2;
+  }
+  _inherits(Action, _React$Component5);
+  return _createClass(Action, [{
+    key: "onFormSubmit",
+    value: function onFormSubmit(e) {
+      e.preventDefault();
+      var item = e.target.elements.txtItem.value.trim();
+      var error = this.props.addItems(item);
+      console.log(error);
+      this.setState({
+        error: error
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, this.state.error && /*#__PURE__*/React.createElement("p", null, this.state.error), /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.onFormSubmit
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "txtItem"
+      }), /*#__PURE__*/React.createElement("button", {
+        type: "submit"
+      }, "Add Item")));
+    }
+  }]);
+}(React.Component);
+;
+var root = ReactDOM.createRoot(document.getElementById('root'));
+root.render( /*#__PURE__*/React.createElement(TodoApp, null));

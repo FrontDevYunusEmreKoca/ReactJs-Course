@@ -6,16 +6,46 @@
 // ReactDOM.render(template,document.getElementById('root'))
 
 class TodoApp extends React.Component{  // ana component bu diger header todolist ve action componentleri bunun icine eklenir
+    constructor (props) {
+
+        super(props);
+        this.clearItems =this.clearItems.bind(this)
+        this.addItems =this.addItems.bind(this)
+        this.state = {
+           items : ["item1","item2","item3"]
+        }
+
+    }
+    clearItems() {
+        console.log("asdsadsads")
+      this.setState({
+        items : []
+      })
+        
+    }
+
+    addItems (item){
+        if(!item){
+            return "eklemek istediginiz elemani girin";
+        }
+        else if(this.state.items.indexOf(item) > -1 ) // 0 ise ayni eleman var demektir
+        {
+            return "ayni elemani ekleyemezsiniz";
+        }
+       this.setState((prevState) => {
+            return {items: prevState.items.concat(item)} 
+      
+       })
+      
+    }
+
+
     render() {
+        
         const app = {
             title :"To Do APP",
             description: "lorem ipsum dolor",
-            items : 
-            [
-             "item1",
-             "item2",
-             "item3"
-            ]
+           
         
         };
 
@@ -23,8 +53,8 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
         return (
             <div>
             <Header title = {app.title} description = {app.description}/>
-             <TodoList  items = {app.items}/>
-            <Action />
+             <TodoList  items = {this.state.items} clearItems={this.clearItems}/>
+            <Action addItems = {this.addItems}/>
         </div>
         );
     };
@@ -46,15 +76,6 @@ class Header extends React.Component {
 };
 
 class TodoList extends React.Component {
-    constructor (props){
-        super(props);
-        this.clearItems =this.clearItems.bind(this)
-    }
-    clearItems(){
-        console.log(this.props.items)
-        console.log("clear Items")
-        
-    }
     render(){
         return (
             <div>
@@ -63,11 +84,11 @@ class TodoList extends React.Component {
                     <ul>
                     {
                     this.props.items.map((item,index) =>
-                        <TodoItem index={index} item={item}/>)
+                        <TodoItem key={index} item={item}/>)
                     }
                     </ul>
                     <p>
-                    <button onClick= {this.clearItems}>Clear Items</button>
+                    <button onClick= {this.props.clearItems}>Clear Items</button>
                     </p>
 
 
@@ -86,19 +107,27 @@ class TodoItem extends React.Component {
 
 
 class Action extends React.Component {
+    constructor(props){
+        super(props)
+        this.onFormSubmit = this.onFormSubmit.bind(this)
+        this.state = {
+            error: ""
+
+        }
+    }
     onFormSubmit(e){
         e.preventDefault();
         const item = e.target.elements.txtItem.value.trim();
-        if (item) {
-            
-            console.log(item)
-        }
+        const error = this.props.addItems(item);
+        console.log(error)
+        this.setState({
+            error:error
+        })
     }
     render(){
         return (
             <div>
-               
-               
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit = {this.onFormSubmit}>
                 <input type="text" name = "txtItem"/>
                 <button type = "submit">Add Item</button>
@@ -112,4 +141,6 @@ class Action extends React.Component {
 
 
 
-ReactDOM.render(<TodoApp />,document.getElementById("root"))
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<TodoApp />);
