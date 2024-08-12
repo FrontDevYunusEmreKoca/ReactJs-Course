@@ -13,37 +13,98 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-var Car = /*#__PURE__*/function (_React$Component) {
-  function Car(props) {
+var Counter = /*#__PURE__*/function (_React$Component) {
+  function Counter(props) {
     var _this;
-    _classCallCheck(this, Car);
-    _this = _callSuper(this, Car, [props]);
-    _this.changeColor = _this.changeColor.bind(_this);
+    _classCallCheck(this, Counter);
+    _this = _callSuper(this, Counter, [props]);
+    _this.addOne = _this.addOne.bind(_this);
+    _this.minusOne = _this.minusOne.bind(_this);
+    _this.reset = _this.reset.bind(_this);
     _this.state = {
-      brand: "Opel",
-      model: "Astra",
-      color: "black",
-      year: 2020
+      number: 0
     };
     return _this;
   }
-  _inherits(Car, _React$Component);
-  return _createClass(Car, [{
-    key: "changeColor",
-    value: function changeColor() {
+  _inherits(Counter, _React$Component);
+  return _createClass(Counter, [{
+    key: "addOne",
+    value: function addOne() {
       this.setState({
-        color: "blue",
-        model: "Corsa"
-        // setState derken aslinda render cagirmadan degisiklikleri yapmis oluyoruz.
+        number: this.state.number + 1 // bu daha kullanisli
+      });
+      console.log("+1");
+    }
+  }, {
+    key: "minusOne",
+    value: function minusOne() {
+      this.setState(function (prevState) {
+        return {
+          number: prevState.number - 1 // yukardaku addOne ile ayni kullanim aslinda
+        };
+      });
+      console.log("-1");
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.setState({
+        number: 0
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.state.brand, " - ", this.state.model), /*#__PURE__*/React.createElement("p", null, "selected color: ", /*#__PURE__*/React.createElement("b", null, this.state.color)), /*#__PURE__*/React.createElement("button", {
-        onClick: this.changeColor
-      }, "Change Color"));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number:", this.state.number), /*#__PURE__*/React.createElement("button", {
+        onClick: this.addOne
+      }, "+1"), /*#__PURE__*/React.createElement("button", {
+        onClick: this.minusOne
+      }, "-1 "), /*#__PURE__*/React.createElement("button", {
+        onClick: this.reset
+      }, "Resetle "));
     }
   }]);
 }(React.Component);
-ReactDOM.render( /*#__PURE__*/React.createElement(Car, null), document.getElementById("root"));
+ReactDOM.render( /*#__PURE__*/React.createElement(Counter, null), document.getElementById("root"));
+
+// var number = 0;
+// var btnClassOneName = "btnRed";
+// var btnClassMinusName = "btnBlue";
+
+// //es5
+// function addOne () {
+//     number++
+//     renderApp();
+//     console.log("add one")
+
+// }
+// //es6
+// var  minusOne = () => {
+//     number--
+//     renderApp();
+//     console.log("minus one")
+// }
+
+// function renderApp (){
+//     var template2 = (
+//         <div>
+//             <h1>Number: {number}</h1>
+//             <button id = "btnPlusOne" className= {btnClassOneName} onClick ={addOne}>+1</button> 
+//             <button id= "btnMinusOne" className= {btnClassMinusName} onClick = {minusOne}>-1 </button>
+//         </div>
+//     )
+
+// }
+
+// function tick(){
+//     var element = (
+//         <div>
+//             <h2>time is : {new Date().toLocaleTimeString()}</h2>
+//         </div>
+//     );
+//     ReactDOM.render(element,root)
+// }
+
+// setInterval(tick,1000) /// surekli bir saniyede bir cagir.
+
+// //renderApp();
