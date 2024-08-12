@@ -60,20 +60,31 @@ var Header = /*#__PURE__*/function (_React$Component2) {
 }(React.Component);
 ;
 var TodoList = /*#__PURE__*/function (_React$Component3) {
-  function TodoList() {
+  function TodoList(props) {
+    var _this;
     _classCallCheck(this, TodoList);
-    return _callSuper(this, TodoList, arguments);
+    _this = _callSuper(this, TodoList, [props]);
+    _this.clearItems = _this.clearItems.bind(_this);
+    return _this;
   }
   _inherits(TodoList, _React$Component3);
   return _createClass(TodoList, [{
+    key: "clearItems",
+    value: function clearItems() {
+      console.log(this.props.items);
+      console.log("clear Items");
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
         return /*#__PURE__*/React.createElement(TodoItem, {
           index: index,
           item: item
         });
-      }));
+      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.clearItems
+      }, "Clear Items")));
     }
   }]);
 }(React.Component);
@@ -99,9 +110,20 @@ var Action = /*#__PURE__*/function (_React$Component5) {
   }
   _inherits(Action, _React$Component5);
   return _createClass(Action, [{
+    key: "onFormSubmit",
+    value: function onFormSubmit(e) {
+      e.preventDefault();
+      var item = e.target.elements.txtItem.value.trim();
+      if (item) {
+        console.log(item);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", null, "Clear Items")), /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("input", {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.onFormSubmit
+      }, /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "txtItem"
       }), /*#__PURE__*/React.createElement("button", {
