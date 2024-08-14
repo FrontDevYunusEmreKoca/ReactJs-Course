@@ -117,80 +117,51 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
   }]);
 }(React.Component);
 ;
-var Header = /*#__PURE__*/function (_React$Component2) {
-  function Header() {
-    _classCallCheck(this, Header);
-    return _callSuper(this, Header, arguments);
-  }
-  _inherits(Header, _React$Component2);
-  return _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      //console.log(this.props)
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
+
+// function Header (props){ // aslinda class yerine ayni mantik olarak gecer ES5
+//     return (
+//         <div>
+//               <h1>{props.title}</h1>
+//               <div>{props.description}</div> 
+//         </div>
+//      );
+// }
+
+//react hook
+var Header = function Header(props) {
+  //ES6 function components
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("div", null, props.description));
+};
+var TodoList = function TodoList(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, props.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement(TodoItem, {
+      deleteItem: props.deleteItem,
+      key: index,
+      item: item
+    });
+  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.clearItems
+  }, "Clear Items")));
+};
+var TodoItem = function TodoItem(props) {
+  return /*#__PURE__*/React.createElement("li", null, props.item, "  ", /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return props.deleteItem(props.item);
     }
-  }]);
-}(React.Component);
-;
-var TodoList = /*#__PURE__*/function (_React$Component3) {
-  function TodoList() {
-    _classCallCheck(this, TodoList);
-    return _callSuper(this, TodoList, arguments);
-  }
-  _inherits(TodoList, _React$Component3);
-  return _createClass(TodoList, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
-        return /*#__PURE__*/React.createElement(TodoItem, {
-          deleteItem: _this2.props.deleteItem,
-          key: index,
-          item: item
-        });
-      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.clearItems
-      }, "Clear Items")));
-    }
-  }]);
-}(React.Component);
-;
-var TodoItem = /*#__PURE__*/function (_React$Component4) {
-  function TodoItem(props) {
-    var _this3;
-    _classCallCheck(this, TodoItem);
-    _this3 = _callSuper(this, TodoItem, [props]);
-    _this3.deleteItem = _this3.deleteItem.bind(_this3);
-    return _this3;
-  }
-  _inherits(TodoItem, _React$Component4);
-  return _createClass(TodoItem, [{
-    key: "deleteItem",
-    value: function deleteItem() {
-      this.props.deleteItem(this.props.item);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item, "  ", /*#__PURE__*/React.createElement("button", {
-        onClick: this.deleteItem
-      }, " X "));
-    }
-  }]);
-}(React.Component);
-;
-var Action = /*#__PURE__*/function (_React$Component5) {
+  }, " X "));
+};
+var Action = /*#__PURE__*/function (_React$Component2) {
   function Action(props) {
-    var _this4;
+    var _this2;
     _classCallCheck(this, Action);
-    _this4 = _callSuper(this, Action, [props]);
-    _this4.onFormSubmit = _this4.onFormSubmit.bind(_this4);
-    _this4.state = {
+    _this2 = _callSuper(this, Action, [props]);
+    _this2.onFormSubmit = _this2.onFormSubmit.bind(_this2);
+    _this2.state = {
       error: ""
     };
-    return _this4;
+    return _this2;
   }
-  _inherits(Action, _React$Component5);
+  _inherits(Action, _React$Component2);
   return _createClass(Action, [{
     key: "onFormSubmit",
     value: function onFormSubmit(e) {

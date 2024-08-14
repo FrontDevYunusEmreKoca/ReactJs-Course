@@ -97,59 +97,49 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
     
 };
 
+// function Header (props){ // aslinda class yerine ayni mantik olarak gecer ES5
+//     return (
+//         <div>
+//               <h1>{props.title}</h1>
+//               <div>{props.description}</div> 
+//         </div>
+//      );
+// }
 
 
-class Header extends React.Component {
-    render(){
-        //console.log(this.props)
-        return (
-           <div>
-                 <h1>{this.props.title}</h1>
-                 <div>{this.props.description}</div> 
-           </div>
-        );
-    };
+//react hook
+const Header = (props) => {  //ES6 function components
+    return (
+                <div>
+                      <h1>{props.title}</h1>
+                      <div>{props.description}</div> 
+                </div>
+             );
 };
 
-class TodoList extends React.Component {
-    render(){
-        return (
-            <div>
 
-           
-                    <ul>
-                    {
-                    this.props.items.map((item,index) =>
-                        <TodoItem deleteItem = {this.props.deleteItem} key={index} item={item}/>)
-                    }
-                    </ul>
-                    <p>
-                    <button onClick= {this.props.clearItems}>Clear Items</button>
-                    </p>
-
-
-             </div>
-           
-        );
-    };
+const TodoList =(props) =>{
+    return (
+        <div>
+                <ul>
+                {
+                    props.items.map((item,index) =>
+                    <TodoItem deleteItem = {props.deleteItem} key={index} item={item}/>)
+                }
+                </ul>
+                <p>
+                <button onClick= {props.clearItems}>Clear Items</button>
+                </p>
+        </div>
+    )
 };
-class TodoItem extends React.Component {
-    constructor(props){
-        super(props)
-        this.deleteItem=this.deleteItem.bind(this)
-    }
-    deleteItem(){
-        this.props.deleteItem(this.props.item)
+
+const TodoItem = (props) => { 
+    return (
+        <li >{props.item}  <button onClick = {()=>props.deleteItem(props.item)}> X </button></li>
         
-    }
-    render(){
-        return (
-            <li >{this.props.item}  <button onClick = {this.deleteItem}> X </button></li>
-            
-        );
-    };
- };
-
+    );
+};
 
 class Action extends React.Component {
     constructor(props){
