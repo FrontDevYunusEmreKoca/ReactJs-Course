@@ -34,6 +34,32 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
   }
   _inherits(TodoApp, _React$Component);
   return _createClass(TodoApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log("KOMPONENT OLUSTURULDU");
+      var json = localStorage.getItem("items");
+      var items = JSON.parse(json);
+      if (items) {
+        this.setState({
+          items: items
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.items.length != this.state.items.length) {
+        var json = JSON.stringify(this.state.items); //Json Stringe ceviri localStroge icin
+        localStorage.setItem("items", json);
+      }
+      alert("KOMPONENT GÜNCELLENDİ");
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      alert("KOMPONENT SILINDI");
+    }
+  }, {
     key: "deleteItem",
     value: function deleteItem(item) {
       console.log(item);

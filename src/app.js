@@ -19,6 +19,28 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
 
     }
 
+    componentDidMount(){
+        console.log("KOMPONENT OLUSTURULDU")
+        const json = localStorage.getItem("items")
+       const items =  JSON.parse(json);
+
+       if (items){
+        this.setState({
+            items:items
+        })
+       }
+    }
+    componentDidUpdate(prevProps , prevState){
+        if(prevState.items.length != this.state.items.length){
+            const  json = JSON.stringify(this.state.items); //Json Stringe ceviri localStroge icin
+            localStorage.setItem("items", json)
+        }
+        alert("KOMPONENT GÜNCELLENDİ");
+    }
+    componentWillUnmount(){
+        alert("KOMPONENT SILINDI");
+    }
+
     deleteItem(item){
         console.log(item)
         this.setState((prevState)=>{

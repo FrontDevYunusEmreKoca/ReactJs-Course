@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server public",
     "babel": "npx babel src/app.js --out-file=public/script/app.js  --watch"
-
   },
   "keywords": [],
   "author": "",
@@ -17,5 +16,8 @@
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.12.4"
   }
 }
