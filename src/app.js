@@ -3,6 +3,7 @@
 // }
 // const template = <header />
 
+
 // ReactDOM.render(template,document.getElementById('root'))
 
 class TodoApp extends React.Component{  // ana component bu diger header todolist ve action componentleri bunun icine eklenir
@@ -11,13 +12,26 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
         super(props);
         this.clearItems =this.clearItems.bind(this)
         this.addItems =this.addItems.bind(this)
+        this.deleteItem=this.deleteItem.bind(this)
         this.state = {
            items : ["item1","item2","item3"]
         }
 
     }
+
+    deleteItem(item){
+        console.log(item)
+        this.setState((prevState)=>{
+          const arr =  prevState.items.filter((i) => {
+                return item != i
+            }) // silmek istemedigimiz elemanlari geriye dondurmus olduk
+            return {
+                items :arr
+            }
+        })
+    }
     clearItems() {
-        console.log("asdsadsads")
+       // console.log("asdsadsads")
       this.setState({
         items : []
       })
@@ -53,7 +67,7 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
         return (
             <div>
             <Header title = {app.title} description = {app.description}/>
-             <TodoList  items = {this.state.items} clearItems={this.clearItems}/>
+             <TodoList  items = {this.state.items} deleteItem={this.deleteItem} clearItems={this.clearItems}/>
             <Action addItems = {this.addItems}/>
         </div>
         );
@@ -65,7 +79,7 @@ class TodoApp extends React.Component{  // ana component bu diger header todolis
 
 class Header extends React.Component {
     render(){
-        console.log(this.props)
+        //console.log(this.props)
         return (
            <div>
                  <h1>{this.props.title}</h1>
@@ -84,7 +98,7 @@ class TodoList extends React.Component {
                     <ul>
                     {
                     this.props.items.map((item,index) =>
-                        <TodoItem key={index} item={item}/>)
+                        <TodoItem deleteItem = {this.props.deleteItem} key={index} item={item}/>)
                     }
                     </ul>
                     <p>
@@ -98,9 +112,18 @@ class TodoList extends React.Component {
     };
 };
 class TodoItem extends React.Component {
+    constructor(props){
+        super(props)
+        this.deleteItem=this.deleteItem.bind(this)
+    }
+    deleteItem(){
+        this.props.deleteItem(this.props.item)
+        
+    }
     render(){
         return (
-            <li >{this.props.item}</li>
+            <li >{this.props.item}  <button onClick = {this.deleteItem}> X </button></li>
+            
         );
     };
  };

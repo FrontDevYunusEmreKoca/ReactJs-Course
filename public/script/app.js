@@ -26,6 +26,7 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
     _this = _callSuper(this, TodoApp, [props]);
     _this.clearItems = _this.clearItems.bind(_this);
     _this.addItems = _this.addItems.bind(_this);
+    _this.deleteItem = _this.deleteItem.bind(_this);
     _this.state = {
       items: ["item1", "item2", "item3"]
     };
@@ -33,9 +34,22 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
   }
   _inherits(TodoApp, _React$Component);
   return _createClass(TodoApp, [{
+    key: "deleteItem",
+    value: function deleteItem(item) {
+      console.log(item);
+      this.setState(function (prevState) {
+        var arr = prevState.items.filter(function (i) {
+          return item != i;
+        }); // silmek istemedigimiz elemanlari geriye dondurmus olduk
+        return {
+          items: arr
+        };
+      });
+    }
+  }, {
     key: "clearItems",
     value: function clearItems() {
-      console.log("asdsadsads");
+      // console.log("asdsadsads")
       this.setState({
         items: []
       });
@@ -68,6 +82,7 @@ var TodoApp = /*#__PURE__*/function (_React$Component) {
         description: app.description
       }), /*#__PURE__*/React.createElement(TodoList, {
         items: this.state.items,
+        deleteItem: this.deleteItem,
         clearItems: this.clearItems
       }), /*#__PURE__*/React.createElement(Action, {
         addItems: this.addItems
@@ -85,7 +100,7 @@ var Header = /*#__PURE__*/function (_React$Component2) {
   return _createClass(Header, [{
     key: "render",
     value: function render() {
-      console.log(this.props);
+      //console.log(this.props)
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
     }
   }]);
@@ -100,8 +115,10 @@ var TodoList = /*#__PURE__*/function (_React$Component3) {
   return _createClass(TodoList, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
         return /*#__PURE__*/React.createElement(TodoItem, {
+          deleteItem: _this2.props.deleteItem,
           key: index,
           item: item
         });
@@ -113,29 +130,39 @@ var TodoList = /*#__PURE__*/function (_React$Component3) {
 }(React.Component);
 ;
 var TodoItem = /*#__PURE__*/function (_React$Component4) {
-  function TodoItem() {
+  function TodoItem(props) {
+    var _this3;
     _classCallCheck(this, TodoItem);
-    return _callSuper(this, TodoItem, arguments);
+    _this3 = _callSuper(this, TodoItem, [props]);
+    _this3.deleteItem = _this3.deleteItem.bind(_this3);
+    return _this3;
   }
   _inherits(TodoItem, _React$Component4);
   return _createClass(TodoItem, [{
+    key: "deleteItem",
+    value: function deleteItem() {
+      this.props.deleteItem(this.props.item);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item);
+      return /*#__PURE__*/React.createElement("li", null, this.props.item, "  ", /*#__PURE__*/React.createElement("button", {
+        onClick: this.deleteItem
+      }, " X "));
     }
   }]);
 }(React.Component);
 ;
 var Action = /*#__PURE__*/function (_React$Component5) {
   function Action(props) {
-    var _this2;
+    var _this4;
     _classCallCheck(this, Action);
-    _this2 = _callSuper(this, Action, [props]);
-    _this2.onFormSubmit = _this2.onFormSubmit.bind(_this2);
-    _this2.state = {
+    _this4 = _callSuper(this, Action, [props]);
+    _this4.onFormSubmit = _this4.onFormSubmit.bind(_this4);
+    _this4.state = {
       error: ""
     };
-    return _this2;
+    return _this4;
   }
   _inherits(Action, _React$Component5);
   return _createClass(Action, [{
