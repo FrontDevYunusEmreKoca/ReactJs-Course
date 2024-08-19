@@ -2,6 +2,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
+import Users from './components/Users';
 import User from './components/User';
 
 class App extends React.Component {
@@ -9,7 +10,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Navbar />
-        <User />
+        <Users />
       </React.Fragment>    // react Fragmentin divden farki alan olsuturmaz ama div gorevi gorur
     )
    }
