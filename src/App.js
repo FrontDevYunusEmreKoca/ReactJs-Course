@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.searchUsers = this.searchUsers.bind(this)
+    this.clearUsers = this.clearUsers.bind(this)
     this.state = {
       loading:false,
       users:[]
@@ -21,6 +22,7 @@ class App extends React.Component {
       axios
       .get("https://api.github.com/users")
       .then(res => this.setState({users:res.data, loading:false}))
+     
     },1000)
    
    }
@@ -30,14 +32,19 @@ class App extends React.Component {
       axios
       .get(`https://api.github.com/search/users?q=${keyword}`)
       .then(res => this.setState({users:res.data.items, loading:false}))
+    
     },1000)
-   
+  }
+  clearUsers (){
+    this.setState({
+        users:[]
+    })
   }
    render(){
     return (
       <React.Fragment>
         <Navbar />
-        <Search searchUsers={this.searchUsers} /> 
+        <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} /> 
         <Users users = {this.state.users} loading = {this.state.loading} />
         
       </React.Fragment>    // react Fragmentin divden farki alan olsuturmaz ama div gorevi gorur
