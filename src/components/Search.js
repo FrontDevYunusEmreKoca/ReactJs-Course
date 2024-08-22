@@ -11,6 +11,7 @@ class Search extends React.Component {
     };
   }
   onChange(e) {
+    console.log(e.target)
     this.setState({
       keyword: e.target.value,
     });
@@ -18,11 +19,17 @@ class Search extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.searchUsers(this.state.keyword);
+    if(this.state.keyword === ""){
+      this.props.setAlert("Lütfen bir anahtar kelime giriniz.", "danger")
+    }
+    else {
+      this.props.searchUsers(this.state.keyword);
  
-    this.setState({
-      keyword: "",
-    });
+      this.setState({
+        keyword: "",
+      });
+    }
+  
   }
 
 
