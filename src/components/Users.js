@@ -3,6 +3,7 @@ import "./Users.css"
 import User from './User'
 import Loading from './Loading'
 
+
 class Users extends React.Component {
     render(){
         if(this.props.loading){

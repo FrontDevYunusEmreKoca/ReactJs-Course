@@ -1,5 +1,6 @@
 import React from "react";
 import "./User.css";
+import { Link } from 'react-router-dom';
 
 class User extends React.Component {
   constructor(props) {
@@ -13,9 +14,9 @@ class User extends React.Component {
           <img className="img-fluid" src={avatar_url} alt="" />
           <div className="card-body">
                 <h5 className="card-title">{login}</h5>
-                <a href={html_url} className="btn btn-sm btn-primary">
+                <Link to={`user/${login}`} className="btn btn-sm btn-primary">
                 Go Profile
-                </a>
+                </Link>
           </div>
         </div>
       </div>

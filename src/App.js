@@ -5,6 +5,7 @@ import Users from "./components/Users";
 import axios from "axios";
 import Search from "./components/Search";
 import Alert from "./components/Alert";
+import UserDetails from "./components/UserDetails";
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,9 +23,11 @@ class App extends React.Component {
     this.searchUsers = this.searchUsers.bind(this);
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.state = {
       loading: false,
       users: [],
+      user: {},
       alert: null,
     };
   }
@@ -46,6 +49,14 @@ class App extends React.Component {
         .then((res) =>
           this.setState({ users: res.data.items, loading: false })
         );
+    }, 1000);
+  }
+  getUser(username) {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/users/${username}`)
+        .then((res) => this.setState({ users: res.data, loading: false }));
     }, 1000);
   }
   clearUsers() {
@@ -80,6 +91,7 @@ class App extends React.Component {
             }
           ></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/user/:login" element={<UserDetails getUser={this.getUser} user={this.state.user}/>}></Route>
         </Routes>
       </BrowserRouter> // react Fragmentin divden farki alan olsuturmaz ama div gorevi gorur
     );
