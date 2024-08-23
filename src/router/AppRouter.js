@@ -114,7 +114,7 @@
 // export default AppRouter;
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink, useParams } from 'react-router-dom';
 import "./AppRouter.css"
 function Home() {
   return <h2>Home Page</h2>;
@@ -131,7 +131,14 @@ function Product() {
   return <h2>Product Page</h2>;
 }
 function ProductDetails() {
-  return <h2>Product Details Page</h2>;
+    const { id } = useParams();
+
+    return (
+        <>
+            <div>Product Details Page</div>
+            <div>{id}</div>
+        </>
+    );
 }
 
 function AppRouter() {
