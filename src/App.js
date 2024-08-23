@@ -24,10 +24,12 @@ class App extends React.Component {
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.getUserRepo = this.getUserRepo.bind(this);
     this.state = {
       loading: false,
       users: [],
       user: {},
+      repos:[],
       alert: null,
     };
   }
@@ -51,14 +53,25 @@ class App extends React.Component {
         );
     }, 1000);
   }
+  //////////////////////////////////////////////
   getUser(username) {
     this.setState({ loading: true });
     setTimeout(() => {
       axios
         .get(`https://api.github.com/users/${username}`)
-        .then((res) => this.setState({ users: res.data, loading: false }));
+        .then((res) => this.setState({ user: res.data, loading: false }));
     }, 1000);
   }
+/////////////////////////////////////////////////////
+  getUserRepo(username){
+    this.setState({ loading: true });
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/users/${username}/repos`)
+        .then((res) => this.setState({ repos: res.data, loading: false }));
+    }, 1000);
+  }
+
   clearUsers() {
     this.setState({
       users: [],
@@ -72,6 +85,7 @@ class App extends React.Component {
     }, 3000);
   }
   render() {
+   
     return (
       <BrowserRouter>
         <Navbar />
@@ -91,7 +105,15 @@ class App extends React.Component {
             }
           ></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/user/:login" element={<UserDetails getUser={this.getUser} user={this.state.user}/>}></Route>
+          <Route path="/user/:login" element={
+            <UserDetails 
+                      getUser={this.getUser}
+                      getUserRepo={this.getUserRepo}
+                      user={this.state.user} 
+                      repos={this.state.repos}
+                      loading={this.state.loading}
+
+             />}></Route>
         </Routes>
       </BrowserRouter> // react Fragmentin divden farki alan olsuturmaz ama div gorevi gorur
     );
