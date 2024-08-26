@@ -4,7 +4,7 @@
 // 16.8 dunction component + hook => stataful function componennt
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // class StateHook extends React.Component{
 //     constructor(props){
@@ -15,6 +15,14 @@ import React, { useState } from 'react'
 //             text:""
 //         }
 //     }
+//     componentDidMount (){
+//         console.log("dsadasdsadadsa2")
+//     }
+//     componentDidUpdate (){
+//         console.log("dsadasdsadadsa2asdadad")
+//     }
+
+
 //     CountPlus(){
 //         this.setState({
 //             count:this.state.count + 1 
@@ -23,7 +31,7 @@ import React, { useState } from 'react'
 //     render() {
 //         return (
 //             <div>
-//               <p>{this.state.count} kez tikladiniz</p>
+//               <p>Butona {this.state.count} kez tikladiniz</p>
 //               {/* <button onClick={() => this.setState({count:this.state.count +1})}>+</button> */}
 //               <button onClick={this.CountPlus}>+</button>
 //             </div>
@@ -34,6 +42,33 @@ import React, { useState } from 'react'
 const StateHook =(props)=> {
     const [count,setCount] = useState(props.count) // string ya da number atayabilirsin
     const [text,setText] =  useState(props.text);
+
+
+
+     //count [count]
+     useEffect(()=>{
+        console.log("text")
+    }, [text])
+
+    //count [count]
+    useEffect(()=>{
+        console.log("count")
+        localStorage.setItem("count", count)
+    }, [count])
+
+    //componentDidMount , [] 
+    useEffect(()=>{
+        console.log("componentDidMount")
+        const CountData = localStorage.getItem("count");
+        if(CountData){
+            setCount(Number(CountData))
+        }
+    }, [])
+   // componentDidMount ve componentDidUpdate ikisi bir arada 
+    useEffect (() => {
+        console.log("useEffect")
+    })
+
     return(
         <div>
             <p>Butona {count} kez tikladiniz</p>
