@@ -12,7 +12,7 @@ function UserDetails({ getUser, loading, user,getUserRepo, repos }) {
   React.useEffect(() => {
     getUser(login);
     getUserRepo(login);
-  }, [login, getUser,getUserRepo]);
+  }, [login]);
   if (loading) {
     return <Loading />;
   } else {
