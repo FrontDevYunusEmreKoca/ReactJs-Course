@@ -1,48 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
-class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+const  Search = ({searchUsers,setAlert,clearUsers}) =>{
+    const [keyword, setKeyword] =useState("");
 
-    this.state = {
-      keyword: "",
-    };
-  }
-  onChange(e) {
+
+    const  onChange =(e) =>{
     console.log(e.target)
-    this.setState({
-      keyword: e.target.value,
-    });
+    setKeyword(e.target.value)
   }
 
-  onSubmit(e) {
+  const onSubmit =(e)=> {
     e.preventDefault();
-    if(this.state.keyword === ""){
-      this.props.setAlert("Lütfen bir anahtar kelime giriniz.", "danger")
+    if(keyword === ""){
+     setAlert("Lütfen bir anahtar kelime giriniz.", "danger")
     }
     else {
-      this.props.searchUsers(this.state.keyword);
- 
-      this.setState({
-        keyword: "",
-      });
+      searchUsers(keyword);
+      setKeyword("")
     }
   
   }
-
-
-  render() {
     return (
       <div className="container my-4">
-        <form className="" onSubmit={this.onSubmit}>
+        <form className="" onSubmit={onSubmit}>
           <div className="input-group">
             <input
-              value={this.state.keyword}
+              value={keyword}
               id="searchId"
               type="text"
-              onChange={this.onChange}
+              onChange={onChange}
               className="form-control"
             />
             <div className="input-group-append">
@@ -52,9 +38,9 @@ class Search extends React.Component {
             </div>
           </div>
         </form>
-        <button  onClick={this.props.clearUsers} className="btn btn-secondary btn-sm w-100 my-3">Clear Results</button>
+        <button  onClick={clearUsers} className="btn btn-secondary btn-sm w-100 my-3">Clear Results</button>
       </div>
     );
-  }
+  
 }
 export default Search;
