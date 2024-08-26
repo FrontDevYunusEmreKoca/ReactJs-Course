@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import StateHook from './examples/StateHook';
+import NoteApp from './examples/NoteApp';
 // import AppRouter from './router/AppRouter';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <StateHook />
+    <NoteApp />
   </React.StrictMode>
 );
 
