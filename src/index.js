@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import StateHook from './examples/StateHook';
-import NoteApp from './examples/NoteApp';
+import NoteApp from './examples/note_app/component/NoteApp';
 // import AppRouter from './router/AppRouter';
 
 
