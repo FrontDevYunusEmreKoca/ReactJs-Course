@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import notesReducer from '../reducers/note';
 import NoteList from './NoteList';
 import AddNewForm from './AddNewForm';
+import NotesContext from '../context/notes-context';
 
 const NoteApp = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
@@ -46,28 +47,34 @@ const NoteApp = () => {
   };
 
   return (
-    <div className='container p-5'>
-      <div className='card mb-3'>
-        <div className="card-header">
-          Notes
+    <NotesContext.Provider value={{notes,dispatch,removeNote}}>
+      <div className='container p-5'>
+        <div className='card mb-3 '>
+          <div className="card-header">
+            Notes
+          </div>
+          <div className=''>
+          {notes && (
+            <table  className='table text-center table-striped mb-0 px-3 '>
+              <tbody>
+                <NoteList   />
+              </tbody>
+            </table>
+          )}
+          </div>
+         
+        </div>
+        <div className='card mb-3'>
+          <div className="card-header">
+            Add a New Note
+          </div>
+         
+          <div className="card-body">
+              <AddNewForm />
+          </div>
         </div>
       </div>
-      <div className='card mb-3'>
-        <div className="card-header">
-          Add a New Note
-        </div>
-        {notes && (
-          <table className='table table-sm table-striped mb-0'>
-            <tbody>
-              <NoteList notes={notes} removeNote={removeNote} />
-            </tbody>
-          </table>
-        )}
-        <div className="card-body">
-            <AddNewForm dispatch={dispatch}/>
-        </div>
-      </div>
-    </div>
+    </NotesContext.Provider>
   );
 };
 

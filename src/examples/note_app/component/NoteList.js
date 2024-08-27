@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NoteTr from './NoteTr';
+import NotesContext from '../context/notes-context';
 
 // `props` yerine destructuring kullanarak `notes` ve `removeNote`'u al
-const NoteList = ({ notes, removeNote }) => {
+const NoteList = () => {
+  const {notes,removeNote}=  useContext(NotesContext)
   // `notes`'un bir dizi olduğundan emin olun
   if (!Array.isArray(notes)) {
     console.error("Expected 'notes' to be an array.");

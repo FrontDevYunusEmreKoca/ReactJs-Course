@@ -6,10 +6,10 @@ const NoteTr = ({ note, removeNote }) => {
       <td style={{ width: "40%" }}>
         {note.title}
       </td>
-      <td>
+      <td style={{ width: "40%" }}>
         {note.body}
       </td>
-      <td style={{ width: "4%" }}>
+      <td style={{ width: "10%" }}>
         <button
           onClick={() => removeNote(note.title)}
           className='btn btn-danger btn-sm'>
