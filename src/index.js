@@ -9,7 +9,7 @@ import NoteApp from './examples/note_app/component/NoteApp';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <NoteApp />
+    <App />
   </React.StrictMode>
 );
 
