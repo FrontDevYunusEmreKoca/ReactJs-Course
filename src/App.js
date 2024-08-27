@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Users from "./components/Users";
@@ -17,107 +17,107 @@ import {
 } from "react-router-dom";
 import About from "./components/About";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.searchUsers = this.searchUsers.bind(this);
-    this.clearUsers = this.clearUsers.bind(this);
-    this.setAlert = this.setAlert.bind(this);
-    this.getUser = this.getUser.bind(this);
-    this.getUserRepo = this.getUserRepo.bind(this);
-    this.state = {
-      loading: false,
-      users: [],
-      user: {},
-      repos:[],
-      alert: null,
-    };
-  }
-  componentDidMount() {
+const App = () => {
+
+    const [users,setUsers] = useState([])
+    const [user,setUser] = useState({})
+    const [loading,setLoading] = useState(false)
+    const [alert,setAlert] = useState(null)
+    const [repos,setRepos] = useState([])
+
+  //  const componentDidMount=() =>{
+  //   // apiye ulastik
+  //   this.setState({ loading: true });
+  //   setTimeout(() => {
+  //     axios
+  //       .get("https://api.github.com/users")
+  //       .then((res) => this.setState({ users: res.data, loading: false }));
+  //   }, 1000);
+  // }
+   const searchUsers = (keyword)=> {
     // apiye ulastik
-    this.setState({ loading: true });
-    setTimeout(() => {
-      axios
-        .get("https://api.github.com/users")
-        .then((res) => this.setState({ users: res.data, loading: false }));
-    }, 1000);
-  }
-  searchUsers(keyword) {
-    // apiye ulastik
-    this.setState({ loading: true });
+    setLoading(true)
     setTimeout(() => {
       axios
         .get(`https://api.github.com/search/users?q=${keyword}`)
-        .then((res) =>
-          this.setState({ users: res.data.items, loading: false })
-        );
+        .then((res) =>{
+            setUsers(res.data.items)
+            setLoading(false)
+        });
     }, 1000);
   }
   //////////////////////////////////////////////
-  getUser(username) {
-    this.setState({ loading: true });
+  const getUser = (username) =>{
+   setLoading(true);
     setTimeout(() => {
       axios
         .get(`https://api.github.com/users/${username}`)
-        .then((res) => this.setState({ user: res.data, loading: false }));
+        .then((res) =>{
+
+          setUser(res.data)
+          setLoading(false)
+          
+        });
     }, 1000);
   }
 /////////////////////////////////////////////////////
-  getUserRepo(username){
-    this.setState({ loading: true });
+  const getUserRepo=(username)=>{
+    setLoading(true)
     setTimeout(() => {
       axios
         .get(`https://api.github.com/users/${username}/repos`)
-        .then((res) => this.setState({ repos: res.data, loading: false }));
+        .then((res) => {
+          setRepos(res.data)
+          setLoading(false)
+        
+        });
     }, 1000);
   }
 
-  clearUsers() {
-    this.setState({
-      users: [],
-    });
+  const clearUsers=() =>{
+   setUsers([])
   }
 
-  setAlert(msg, type) {
-    this.setState({ alert: { msg, type } });
+ const showAlert = (msg, type) =>{
+   setAlert(msg,type)
     setTimeout(() => {
-      this.setState({ alert: null });
+      setAlert(null)
     }, 3000);
   }
-  render() {
+ 
    
     return (
       <BrowserRouter>
         <Navbar />
-        <Alert alert={this.state.alert} />
+        <Alert alert={alert} />
         <Routes>
           <Route
             path="/"
             element={
               <>
                 <Search
-                  searchUsers={this.searchUsers}
-                  clearUsers={this.clearUsers}
-                  setAlert={this.setAlert}
+                  searchUsers={searchUsers}
+                  clearUsers={clearUsers}
+                  setAlert={showAlert}
                 />
-                <Users users={this.state.users} loading={this.state.loading} />
+                <Users users={users} loading={loading} />
               </>
             }
           ></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/user/:login" element={
             <UserDetails 
-                      getUser={this.getUser}
-                      getUserRepo={this.getUserRepo}
-                      user={this.state.user} 
-                      repos={this.state.repos}
-                      loading={this.state.loading}
+                      getUser={getUser}
+                      getUserRepo={getUserRepo}
+                      user={user} 
+                      repos={repos}
+                      loading={loading}
 
              />}></Route>
         </Routes>
       </BrowserRouter> // react Fragmentin divden farki alan olsuturmaz ama div gorevi gorur
     );
   }
-}
+
 
 export default App;
