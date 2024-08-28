@@ -8,7 +8,7 @@ const notesReducer = (state, action) => {
           { title: action.title, body: action.body }
         ];
       case "REMOVE_NOTE":
-        return state.filter(note => note.title !== action.title);
+        return state.filter((note) => note.title !== action.title);
       case "DEFAULT":
         return [];
       default:

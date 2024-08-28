@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./Users.css"
 import User from './User'
 import Loading from './Loading'
+import AppContext from '../context/AppContext'
 
 
-class Users extends React.Component {
-    render(){
-        if(this.props.loading){
+const Users =()=> {
+    const appContext = useContext(AppContext)
+    const {users,loading} = appContext
+        if(loading){
             return <Loading />
         }
         else {
             return (
                 <div className='container mt-3'>
                     <div className="row">
-                            {this.props.users.map(user => (
+                            {users.map(user => (
                                     
                                     <User user= {user} key={user.id}/>
                                     
@@ -25,6 +27,6 @@ class Users extends React.Component {
         }
       
     }
-}
+
 
 export default Users

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AppContext from "../context/AppContext";
+import AppState from "../context/AppState";
 
-const  Search = ({searchUsers,setAlert,clearUsers}) =>{
+const  Search = ({setAlert,clearUsers}) =>{
+    const appContext =  useContext(AppContext)
     const [keyword, setKeyword] =useState("");
 
 
@@ -15,7 +18,7 @@ const  Search = ({searchUsers,setAlert,clearUsers}) =>{
      setAlert("Lütfen bir anahtar kelime giriniz.", "danger")
     }
     else {
-      searchUsers(keyword);
+     appContext.searchUsers(keyword)
       setKeyword("")
     }
   
